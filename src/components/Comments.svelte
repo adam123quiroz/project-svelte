@@ -2,7 +2,7 @@
   export let comments = []
 
   function addComment(event) {
-    const msg = event.target.value;
+    const msg = event.target.text.value;
 
     if (msg.length > 3) {
       const message = {
