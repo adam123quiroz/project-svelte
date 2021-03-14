@@ -1,3 +1,22 @@
+<script>
+  export let comments = []
+
+  function addComment(event) {
+    const msg = event.target.value;
+
+    if (msg.length > 3) {
+      const message = {
+        id: Date.now(),
+        text: msg,
+        username: "gndx"
+      }
+
+      comments = [...comments, message];
+      event.target.text.value = "";
+    }
+  }
+</script>
+
 <style>
     .Comments h3 {
         font-size: 14px;
@@ -6,24 +25,29 @@
         margin: 0;
         padding: 0;
     }
+
     .Comments span {
         font-size: 14px;
         margin: 0 0 0 0.5em;
         font-weight: normal;
         color: rgba(black, 0.9);
     }
+
     .Comments-add {
         padding: 1em 1em 1em 1em;
         border-top: 1px solid rgba(219, 219, 219, 0.8);
     }
+
     .Comments-add form {
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
+
     .Comments-content {
         padding: 0 1em 0.5em 1em;
     }
+
     .Comments-users {
         margin: 0 0 0.5em 0;
         display: flex;
@@ -39,6 +63,7 @@
         width: 100%;
         display: flex;
     }
+
     button {
         border: none;
         color: #3897f0;
@@ -46,6 +71,7 @@
         outline: none;
         cursor: pointer;
     }
+
     label {
         display: none;
     }
@@ -53,13 +79,22 @@
 
 <div class="Comments">
   <div class="Comments-content">
-    <div class="Comments-users">
-      <h3>Crispeta</h3>
-      <span>Hola Elmo</span>
-    </div>
+
+    {#each comments as comment (comment.id)}
+      <div class="Comments-users">
+        <h3>{comment.username}</h3>
+        <span>{comment.text}</span>
+      </div>
+    {/each}
+
     <div class="Comments-add">
-      <form action="">
-        <input type="text" class="Comments-input" placeholder="Agregar Comentario..." id="text">
+      <form on:submit|preventDefault={addComment}>
+        <input
+            type="text"
+            class="Comments-input"
+            placeholder="Agregar Comentario..."
+            id="text"
+        >
         <button type="submit">Post</button>
       </form>
     </div>

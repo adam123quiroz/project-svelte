@@ -77,8 +77,10 @@
         <div class="Stories-item-box">
           <img src="https://arepa.s3.amazonaws.com/oscar.png" alt="">
         </div>
-        <h2>gndx</h2>
-        <span>10 horas antes</span>
+        <h2>
+          gndx
+          <span>10 horas antes</span>
+        </h2>
       </div>
     </div>
   </div>
