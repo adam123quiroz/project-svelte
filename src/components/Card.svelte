@@ -3,6 +3,7 @@
   import Modal from "./Modal.svelte";
   import {blur} from "svelte/transition";
   import Share from "./Share.svelte";
+  import {likeCount} from "../store/store";
 
   export let username;
   export let location;
@@ -12,11 +13,22 @@
   export let avatar;
 
   let isModal = false;
+  let like = false;
+  let bookmark = false;
 
-  function handleClick() {
+
+  const handleClick = () => {
     isModal = !isModal;
   }
 
+  const handleLike = () => {
+    like = !like;
+    if (like) {
+      likeCount.update(value => value + 1);
+    } else {
+      likeCount.update(value => value - 1);
+    }
+  };
 
 </script>
 
@@ -163,7 +175,7 @@
   <div class="Card-container">
     <div class="Card-header">
       <div class="Card-user">
-        <img src={avatar} alt={username}/>
+        <img alt={username} src={avatar}/>
         <h2>
           {username}
           <span>{location}</span>
@@ -174,17 +186,25 @@
       </div>
     </div>
     <div class="Card-photo">
-      <figure>
-        <img src={photo} alt={username}>
+      <figure on:dblclick={handleLike}>
+        <img alt={username} src={photo}>
       </figure>
     </div>
     <div class="Card-icons">
       <div class="Card-icons-first">
-        <i class="fas fa-heart"/>
-        <i class="fas fa-paper-plane" on:click={handleClick}/>
+        <i class="fas fa-heart"
+           class:active-like={like}
+           on:click={handleLike}
+        ></i>
+        <i class="fas fa-paper-plane"
+           on:click={handleClick}
+        ></i>
       </div>
       <div class="Card-icons-second">
-        <i class="fas fa-bookmark"/>
+        <i class="fas fa-bookmark"
+           class:active-bookmark={bookmark}
+           on:click={() => {bookmark = !bookmark}}
+        ></i>
       </div>
     </div>
     <div class="Card-description">

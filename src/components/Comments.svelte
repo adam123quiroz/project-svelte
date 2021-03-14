@@ -1,7 +1,7 @@
 <script>
   export let comments = []
 
-  function addComment(event) {
+  const addComment = (event) => {
     const msg = event.target.text.value;
 
     if (msg.length > 3) {
@@ -30,7 +30,7 @@
         font-size: 14px;
         margin: 0 0 0 0.5em;
         font-weight: normal;
-        color: rgba(black, 0.9);
+        color: rgba(1, 1, 1, 0.9);
     }
 
     .Comments-add {
